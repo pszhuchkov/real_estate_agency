@@ -4,7 +4,7 @@ from .models import Flat, Complaint, Owner
 
 @admin.register(Flat)
 class FlatAdmin(admin.ModelAdmin):
-    search_fields = ('town', 'address', 'owner',)
+    search_fields = ('town', 'address', 'owners__owner',)
     readonly_fields = ('created_at',)
     list_display = (
         'address', 'price', 'new_building', 'construction_year', 'town',
@@ -22,7 +22,8 @@ class ComplaintAdmin(admin.ModelAdmin):
 
 @admin.register(Owner)
 class OwnerAdmin(admin.ModelAdmin):
-    raw_id_fields = ('has_flats',)
+    raw_id_fields = ('flats',)
+    search_fields = ('owner',)
     list_display = (
         'owner', 'owners_phonenumber', 'owner_pure_phone'
     )
